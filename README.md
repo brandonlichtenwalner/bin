@@ -1,0 +1,2 @@
+# bin
+personal scripts

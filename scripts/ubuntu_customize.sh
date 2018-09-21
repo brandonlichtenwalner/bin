@@ -14,8 +14,8 @@
 
 # TODO: configure and pull down stuff from gitlab.umbctraining.co
 
-echo "Pulling down Mind Maps repo..."
-git clone git@github.com:brandonlichtenwalner/maps.git
+# echo "Pulling down Mind Maps repo..."
+# git clone git@github.com:brandonlichtenwalner/maps.git
 
 # add etcher repo
 echo "deb https://dl.bintray.com/resin-io/debian stable etcher" | tee /etc/apt/sources.list.d/etcher.list

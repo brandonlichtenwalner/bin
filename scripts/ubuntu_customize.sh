@@ -12,7 +12,7 @@
 ##   cd ~
 ##   ~/bin/scripts/ubuntu_customize.sh
 
-# TODO: git configuration, git pull for mind maps and config files, SSH setup
+# TODO: configure and pull down stuff from gitlab.umbctraining.co
 
 echo "Pulling down Mind Maps repo..."
 git clone git@github.com:brandonlichtenwalner/maps.git

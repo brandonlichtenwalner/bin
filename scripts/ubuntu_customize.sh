@@ -7,7 +7,7 @@
 ## This script should be run with my main user account, which is assumed to have sudo privileges.
 
 ## Getting started on a new host:
-##   restore backup of .ssh directory
+##   restore backup of saved home directory files, most notably .ssh directory
 ##   git clone git@github.com:brandonlichtenwalner/bin.git
 ##   cd ~
 ##   ~/bin/scripts/ubuntu_customize.sh

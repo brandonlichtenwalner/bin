@@ -1,0 +1,69 @@
+# Make sure the script has been executed as root
+if [ "$USER" != 'root' ]; then
+	echo "This script must be run with root privileges."
+	echo "Try using: sudo $0 $@"
+	exit 2
+fi
+
+# Default Remmina in Ubuntu 18.04 should be fine
+# Also check snaps before going back to this PPA
+#echo "Would you like to add the Remmina Next PPA? [Y/n]"
+#read add_packages
+#if [ "${add_packages,,}" != "n" ] && [ "${add_packages,,}" != "no" ]; then
+#	echo "Adding PPA for Remmina Next..."
+#	apt-add-repository -y ppa:remmina-ppa-team/remmina-next
+#fi
+
+# Default is king; removing stuff tends to cause more issues than it's worth and be dependent on flavor
+# The below was for Ubuntu GNOME 16.04
+#echo "Removing crap..."
+#apt -y purge aisleriot brasero* deja-dup* evolution-common gnome-calendar gnome-contacts gnome-documents gnome-mahjongg gnome-maps gnome-mines gnome-music gnome-sudoku gnome-weather grilo* libreoffice-math *rhythmbox* simple-scan
+
+
+echo "Would you like to apply UI customizations: slim down GTK3 title bars, global dark theme? [<username>/n]"
+echo "Enter username or 'no' to continue: "
+read user_name
+if [ "${user_name,,}" != "n" ] && [ "${user_name,,}" != "no" ]; then
+	cat << 'EOF' > /home/$user_name/.config/gtk-3.0/gtk.css
+	/* shrink headerbars */
+	headerbar {
+	    min-height: 0px;
+	    padding-left: 2px; /* same as childrens vertical margins for nicer proportions */
+	    padding-right: 2px;
+	    background-color: #2d2d2d;
+	}
+	headerbar entry,
+	headerbar spinbutton,
+	headerbar button,
+	headerbar separator {
+	    margin-top: 0px; /* same as headerbar side padding for nicer proportions */
+	    margin-bottom: 0px;
+	}
+	/* shrink ssd titlebars */
+	.default-decoration {
+	    min-height: 0; /* let the entry and button drive the titlebar size */
+	    padding: 0px
+	    background-color: #2d2d2d;
+	}
+	.default-decoration .titlebutton {
+	    min-height: 0px; /* tweak these two props to reduce button size */
+	    min-width: 0px;
+	}
+	window.ssd headerbar.titlebar {
+	    padding-top: 2px;
+	    padding-bottom: 2px;
+	    min-height: 0;
+	}
+	window.ssd headerbar.titlebar button.titlebutton {
+	    padding-top: 2px;
+	    padding-bottom:2px;
+	    min-height: 0;
+	}
+	EOF
+	chown $username:$username /home/$user_name/.config/gtk-3.0/gtk.css
+	
+	cat << 'EOF' > /home/$user_name/.config/gtk-3.0/settings.ini
+	gtk-application-prefer-dark-theme=1
+	EOF
+	chown $username:$username /home/$user_name/.config/gtk-3.0/settings.ini
+fi

@@ -6,9 +6,16 @@
 
 ## This script should be run with my main user account, which is assumed to have sudo privileges.
 
-# TODO: Outside of script, add config files to git
+## Getting started on a new host:
+##   restore backup of .ssh directory
+##   git clone git@github.com:brandonlichtenwalner/bin.git
+##   cd ~
+##   ~/bin/scripts/ubuntu_customize.sh
 
 # TODO: git configuration, git pull for mind maps and config files, SSH setup
+
+echo "Pulling down Mind Maps repo..."
+git clone git@github.com:brandonlichtenwalner/maps.git
 
 # add etcher repo
 echo "deb https://dl.bintray.com/resin-io/debian stable etcher" | tee /etc/apt/sources.list.d/etcher.list
@@ -19,13 +26,12 @@ sudo apt -y update
 sudo apt -y full-upgrade
 
 # install additional commonly used desktop packages
-sudo apt -y install etcher-electron exfat-utils filezilla freeplane git meld p7zip-full
+echo "Installing the usual packages..."
+sudo apt -y install etcher-electron exfat-utils filezilla freeplane git meld p7zip-full virtualbox-ext-pack virtualbox-guest-additions-iso
 
-echo "Would you like to install VirtualBox (and extensions)? [Y/n]"
-read add_packages
-if [ "${add_packages,,}" != "n" ] && [ "${add_packages,,}" != "no" ]; then
-	sudo apt -y install virtualbox-ext-pack virtualbox-guest-additions-iso
-fi
+echo "Installing TLP and related packages..."
+sudo apt -y install --no-install-recommends tlp smartmontools
+sudo apt -y install tlp-rdw linux-tools-generic
 
 echo "Would you like to install qemu-kvm and virt-manager? [Y/n]"
 read add_packages
@@ -46,14 +52,7 @@ if [ "${add_packages,,}" != "n" ] && [ "${add_packages,,}" != "no" ]; then
 	rm -f google-chrome-stable_current_amd64.deb
 fi
 
-echo "Would you like to install TLP for laptop power management? [Y/n]"
-read add_packages
-if [ "${add_packages,,}" != "n" ] && [ "${add_packages,,}" != "no" ]; then
-	echo "Installing TLP and related packages..."
-	sudo apt -y install --no-install-recommends tlp smartmontools
-	sudo apt -y install tlp-rdw linux-tools-generic
-fi
-
+echo "Answer 'no' if connected to Training Centers Corporate network. Need to fix support.umbctraining.com from inside."
 echo "Would you like to install SimpleHelp? [Y/n]"
 read add_packages
 if [ "${add_packages,,}" != "n" ] && [ "${add_packages,,}" != "no" ]; then

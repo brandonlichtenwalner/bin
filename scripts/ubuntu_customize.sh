@@ -64,6 +64,19 @@ if [ "${add_packages,,}" != "n" ] && [ "${add_packages,,}" != "no" ]; then
 	rm -f SimpleHelpTechnician.tar
 fi
 
+# This is at the end because I *think* it needs to be installed after Chrome
+echo "Downloading LastPass binary..."
+wget "https://download.cloud.lastpass.com/linux/lplinux.tar.bz2"
+echo "Confirming checksum..."
+CHECKSUM=$(sha256sum lplinux.tar.bz2) 
+if [ "$CHECKSUM" -eq "905474aceb9998ba25118c572f727336d239a146aad705207f78cacf9052ea29" ]; then
+	tar xjvf lplinux.tar.bz2
+	cd lplinux && ./install_lastpass.sh
+	cd .. && rm lplinux.tar.bz2 && rm -rf lplinux
+else
+	echo "LastPass checksum does not match last known value! Binary not installed."
+fi
+
 echo "Cleaning up..."
 sudo apt -y autoremove
 sudo apt -y clean

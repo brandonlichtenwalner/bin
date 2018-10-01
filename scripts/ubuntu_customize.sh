@@ -14,9 +14,6 @@
 
 # TODO: configure and pull down stuff from gitlab.umbctraining.co
 
-# echo "Pulling down Mind Maps repo..."
-# git clone git@github.com:brandonlichtenwalner/maps.git
-
 echo "Would you like to install qemu-kvm and virt-manager? [Y/n]"
 read add_kvm
 
@@ -42,6 +39,15 @@ sudo apt -y install etcher-electron exfat-utils filezilla freeplane git meld p7z
 echo "Installing TLP and related packages..."
 sudo apt -y install --no-install-recommends tlp smartmontools
 sudo apt -y install tlp-rdw linux-tools-generic
+
+echo "Pulling down Mind Maps repo..."
+git clone git@github.com:brandonlichtenwalner/maps.git
+
+echo "Fixing permissions on copied hidden directories..."
+chmod go-rwx .putty
+chmod go-rwx .remmina
+chmod go-rwx .ssh
+chmod go-rwx .tc_config
 
 # Install Qemu/KVM (or not)
 if [ "${add_kvm,,}" != "n" ] && [ "${add_kvm,,}" != "no" ]; then

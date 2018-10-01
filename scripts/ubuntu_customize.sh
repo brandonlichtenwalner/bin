@@ -12,7 +12,7 @@
 ##   cd ~
 ##   ~/bin/scripts/ubuntu_customize.sh
 
-# TODO: configure and pull down stuff from gitlab.umbctraining.co
+# TODO: configure and pull down stuff from gitlab.umbctraining.com
 
 echo "Would you like to install qemu-kvm and virt-manager? [Y/n]"
 read add_kvm
@@ -87,6 +87,9 @@ if [ "$CHECKSUM" = "905474aceb9998ba25118c572f727336d239a146aad705207f78cacf9052
 else
 	echo "LastPass checksum does not match last known value! Binary not installed."
 fi
+
+# TODO: Download and install latest sharp drivers
+# http://siica.sharpusa.com/Portals/0/downloads/Drivers/Sharp_1_2_MX_C52_ps.zip
 
 echo "Cleaning up..."
 sudo apt -y autoremove

@@ -24,6 +24,6 @@ gdbus call --session --dest org.gnome.SettingsDaemon.Power --object-path /org/gn
 # need to sleep for a few seconds for it to finish closing
 # added additional sleep time to ensure wifi is usually reconnected
 # before Chrome restarts
-/usr/bin/pkill --oldest --signal TERM -f chrome
-sleep 8
-google-chrome &
+#/usr/bin/pkill --oldest --signal TERM -f chrome
+#sleep 8
+#google-chrome &

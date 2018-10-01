@@ -17,8 +17,18 @@
 # echo "Pulling down Mind Maps repo..."
 # git clone git@github.com:brandonlichtenwalner/maps.git
 
+echo "Would you like to install qemu-kvm and virt-manager? [Y/n]"
+read add_kvm
+
+echo "Would you like to install Google Chrome? [Y/n]"
+read add_chrome
+
+echo "Answer 'no' if connected to Training Centers Corporate network. Need to fix support.umbctraining.com from inside."
+echo "Would you like to install SimpleHelp? [Y/n]"
+read add_simplehelp
+
 # add etcher repo
-echo "deb https://dl.bintray.com/resin-io/debian stable etcher" | tee /etc/apt/sources.list.d/etcher.list
+echo "deb https://dl.bintray.com/resin-io/debian stable etcher" | sudo tee /etc/apt/sources.list.d/etcher.list
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 379CE192D401AB61
 
 echo "Update repos, run an apt full-upgrade, and clean up..."
@@ -27,22 +37,19 @@ sudo apt -y full-upgrade
 
 # install additional commonly used desktop packages
 echo "Installing the usual packages..."
-sudo apt -y install etcher-electron exfat-utils filezilla freeplane git meld p7zip-full virtualbox-ext-pack virtualbox-guest-additions-iso
+sudo apt -y install etcher-electron exfat-utils filezilla freeplane git meld p7zip-full vim virtualbox-ext-pack virtualbox-guest-additions-iso
 
 echo "Installing TLP and related packages..."
 sudo apt -y install --no-install-recommends tlp smartmontools
 sudo apt -y install tlp-rdw linux-tools-generic
 
-echo "Would you like to install qemu-kvm and virt-manager? [Y/n]"
-read add_packages
-if [ "${add_packages,,}" != "n" ] && [ "${add_packages,,}" != "no" ]; then
+# Install Qemu/KVM (or not)
+if [ "${add_kvm,,}" != "n" ] && [ "${add_kvm,,}" != "no" ]; then
 	sudo apt -y install bridge-utils qemu-kvm virt-manager
 fi
 
-echo "I hope to be using Firefox as a daily driver, but it's always good to have a couple of browsers, so..."
-echo "Would you like to install Google Chrome? [Y/n]"
-read add_packages
-if [ "${add_packages,,}" != "n" ] && [ "${add_packages,,}" != "no" ]; then
+# Install Google Chrome (or not)
+if [ "${add_chrome,,}" != "n" ] && [ "${add_chrome,,}" != "no" ]; then
 	echo "Downloading latest Google Chrome package..."
 	wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 	echo "Using dpkg to install Google Chrome..."
@@ -52,27 +59,25 @@ if [ "${add_packages,,}" != "n" ] && [ "${add_packages,,}" != "no" ]; then
 	rm -f google-chrome-stable_current_amd64.deb
 fi
 
-echo "Answer 'no' if connected to Training Centers Corporate network. Need to fix support.umbctraining.com from inside."
-echo "Would you like to install SimpleHelp? [Y/n]"
-read add_packages
-if [ "${add_packages,,}" != "n" ] && [ "${add_packages,,}" != "no" ]; then
+# Install SimpleHelp (or not)
+if [ "${add_simplehelp,,}" != "n" ] && [ "${add_simplehelp,,}" != "no" ]; then
 	echo "Downloading and extracing SimpleHelp archive..."
 	wget -O SimpleHelpTechnician.tar "http://support.umbctraining.com/technician/SimpleHelp%20Technician-linux64-online.tar?language=en&hostname=http%3A%2F%2Fsupport.umbctraining.com&ie=ie.exe"
 	tar -xvf SimpleHelpTechnician.tar
 	echo "Running SimpleHelp installer..."
 	~/SimpleHelp\ Technician-linux64-online
-	rm -f SimpleHelpTechnician.tar
+	rm  *SimpleHelp*
 fi
 
-# This is at the end because I *think* it needs to be installed after Chrome
+# This is last because it needs to be done after Chrome is installed (if selected)
 echo "Downloading LastPass binary..."
 wget "https://download.cloud.lastpass.com/linux/lplinux.tar.bz2"
 echo "Confirming checksum..."
-CHECKSUM=$(sha256sum lplinux.tar.bz2) 
-if [ "$CHECKSUM" -eq "905474aceb9998ba25118c572f727336d239a146aad705207f78cacf9052ea29" ]; then
+CHECKSUM=$(sha256sum lplinux.tar.bz2 | cut -f 1 -d " ") 
+if [ "$CHECKSUM" = "905474aceb9998ba25118c572f727336d239a146aad705207f78cacf9052ea29" ]; then
 	tar xjvf lplinux.tar.bz2
-	cd lplinux && ./install_lastpass.sh
-	cd .. && rm lplinux.tar.bz2 && rm -rf lplinux
+	./install_lastpass.sh
+	rm lplinux.tar.bz2 && rm *lastpass*
 else
 	echo "LastPass checksum does not match last known value! Binary not installed."
 fi

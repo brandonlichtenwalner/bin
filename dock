@@ -14,6 +14,6 @@ xrandr --output eDP-1 --mode 1920x1080 --output DP-2-2 --mode 1920x1200 --right-
 gdbus call --session --dest org.gnome.SettingsDaemon.Power --object-path /org/gnome/SettingsDaemon/Power --method org.freedesktop.DBus.Properties.Set org.gnome.SettingsDaemon.Power.Screen Brightness "<int32 100>"
 
 # Chrome needs to be restarted to detect new scaling settings
-#/usr/bin/pkill --oldest --signal TERM -f chrome
-#sleep 8 
-#google-chrome &
+/usr/bin/pkill --oldest --signal TERM -f chrome
+sleep 8 
+google-chrome &

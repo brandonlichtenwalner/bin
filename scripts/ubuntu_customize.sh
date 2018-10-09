@@ -49,6 +49,8 @@ chmod go-rwx .remmina
 chmod go-rwx .ssh
 chmod go-rwx .tc_config
 
+echo 'alias llblk="lsblk --output NAME,SIZE,TYPE,FSTYPE,MOUNTPOINT,SERIAL,UUID"' >> ~/.bash_aliases
+
 # Install Qemu/KVM (or not)
 if [ "${add_kvm,,}" != "n" ] && [ "${add_kvm,,}" != "no" ]; then
 	sudo apt -y install bridge-utils qemu-kvm virt-manager

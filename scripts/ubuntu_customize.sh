@@ -34,7 +34,7 @@ sudo apt -y full-upgrade
 
 # install additional commonly used desktop packages
 echo "Installing the usual packages..."
-sudo apt -y install etcher-electron exfat-utils filezilla freeplane git hyphen-en-us libreoffice-calc libreoffice-gnome libreoffice-impress libreoffice-pdfimport libreoffice-writer meld mythes-en-us p7zip-full remmina-plugin-spice transmission-gtk vim virtualbox-ext-pack virtualbox-guest-additions-iso
+sudo apt -y install etcher-electron exfat-utils filezilla freeplane git hyphen-en-us libreoffice-calc libreoffice-gnome libreoffice-impress libreoffice-pdfimport libreoffice-writer meld mpv mythes-en-us p7zip-full remmina-plugin-spice transmission-gtk vim virtualbox-ext-pack virtualbox-guest-additions-iso
 
 echo "Installing TLP and related packages..."
 sudo apt -y install --no-install-recommends tlp smartmontools

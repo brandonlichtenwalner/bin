@@ -25,7 +25,7 @@ echo "Would you like to install SimpleHelp? [Y/n]"
 read add_simplehelp
 
 # add etcher repo
-echo "deb https://dl.bintray.com/resin-io/debian stable etcher" | sudo tee /etc/apt/sources.list.d/etcher.list
+echo "deb https://deb.etcher.io stable etcher" | sudo tee /etc/apt/sources.list.d/balena-etcher.list
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 379CE192D401AB61
 
 echo "Update repos, run an apt full-upgrade, and clean up..."
@@ -34,7 +34,7 @@ sudo apt -y full-upgrade
 
 # install additional commonly used desktop packages
 echo "Installing the usual packages..."
-sudo apt -y install etcher-electron exfat-utils filezilla freeplane git hyphen-en-us libreoffice-calc libreoffice-gnome libreoffice-impress libreoffice-pdfimport libreoffice-writer meld mpv mythes-en-us p7zip-full remmina-plugin-spice screen transmission-gtk vim virtualbox-ext-pack virtualbox-guest-additions-iso
+sudo apt -y install balena-etcher-electron exfat-utils filezilla freeplane git hyphen-en-us libreoffice-calc libreoffice-gnome libreoffice-impress libreoffice-pdfimport libreoffice-writer meld mpv mythes-en-us p7zip-full remmina-plugin-spice screen transmission-gtk vim virtualbox-ext-pack virtualbox-guest-additions-iso
 
 echo "Installing TLP and related packages..."
 sudo apt -y install --no-install-recommends tlp smartmontools

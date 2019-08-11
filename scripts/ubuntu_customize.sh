@@ -33,8 +33,13 @@ sudo apt -y update
 sudo apt -y full-upgrade
 
 # install additional commonly used desktop packages
-echo "Installing the usual packages..."
+echo "Installing the usual packages via apt..."
 sudo apt -y install balena-etcher-electron exfat-utils freeplane git hyphen-en-us libreoffice-calc libreoffice-impress libreoffice-pdfimport libreoffice-writer meld mpv mythes-en-us p7zip-full remmina-plugin-spice screen transmission-gtk vim
+
+echo "Installing packages via snap..."
+sudo snap install syncthing
+
+# TODO: automatic syncthing configuration?
 
 #echo "Fixing permissions on copied hidden directories..."
 #chmod go-rwx .putty

@@ -18,8 +18,8 @@ read add_tlp
 echo "Would you like to install qemu-kvm and virt-manager? [Y/n]"
 read add_kvm
 
-echo "Would you like to install VirtualBox and extensions? [Y/n]"
-read add_vbox
+#echo "Would you like to install VirtualBox and extensions? [Y/n]"
+#read add_vbox
 
 echo "Would you like to install Google Chrome? [Y/n]"
 read add_chrome
@@ -61,12 +61,17 @@ if [ "${add_kvm,,}" != "n" ] && [ "${add_kvm,,}" != "no" ]; then
 fi
 
 # Install VirtualBox (or not)
-if [ "${add_vbox,,}" != "n" ] && [ "${add_vbox,,}" != "no" ]; then
+#if [ "${add_vbox,,}" != "n" ] && [ "${add_vbox,,}" != "no" ]; then
     #sudo apt -y install virtualbox-ext-pack virtualbox-guest-additions-iso
-    echo 'deb https://download.virtualbox.org/virtualbox/debian bionic contrib' | sudo tee /etc/apt/sources.list.d/vbox.list
-    wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
-    sudo apt -y install virtualbox-6.0-ext-pack virtualbox-6.0-guest-additions-iso
-fi
+
+    #echo 'deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian bionic contrib' | sudo tee /etc/apt/sources.list.d/vbox.list
+    #wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
+    #sudo apt -y update
+    #sudo apt -y install virtualbox-6.0
+
+    #NOTE: You cannot install the ext-pack or guest-additions-iso from the virtualbox.org repo
+    #      It is probably best to just download and install the latest deb and ext-pack from the website
+#fi
 
 # Install Google Chrome (or not)
 if [ "${add_chrome,,}" != "n" ] && [ "${add_chrome,,}" != "no" ]; then

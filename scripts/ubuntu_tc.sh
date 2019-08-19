@@ -6,6 +6,9 @@
 
 # TODO: configure and pull down stuff from gitlab.umbctraining.com
 
+# Install Slack from the snap
+sudo snap install slack
+
 echo "Answer 'no' if connected to Training Centers Corporate network. Need to fix support.umbctraining.com from inside."
 echo "Would you like to install SimpleHelp? [Y/n]"
 read add_simplehelp

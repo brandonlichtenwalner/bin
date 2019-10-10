@@ -24,6 +24,9 @@ read add_kvm
 echo "Would you like to install Google Chrome? [Y/n]"
 read add_chrome
 
+echo "Would you like to install Brave [Y/n]"
+read add_brave
+
 # add etcher repo
 echo "deb https://deb.etcher.io stable etcher" | sudo tee /etc/apt/sources.list.d/balena-etcher.list
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 379CE192D401AB61
@@ -83,6 +86,18 @@ if [ "${add_chrome,,}" != "n" ] && [ "${add_chrome,,}" != "no" ]; then
 	sudo apt -yf install
 	rm -f google-chrome-stable_current_amd64.deb
 fi
+
+# Install Brave (or not)
+if [ "${add_brave,,}" != "n" ] && [ "${add_brave,,}" != "no" ]; then
+	curl -s https://brave-browser-apt-release.s3.brave.com/brave-core.asc | sudo apt-key --keyring /etc/apt/trusted.gpg.d/brave-browser-release.gpg add -
+
+	source /etc/os-release
+	echo "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ $UBUNTU_CODENAME main" | sudo tee /etc/apt/sources.list.d/brave-browser-release-${UBUNTU_CODENAME}.list
+
+	sudo apt update
+	sudo apt install brave-browser
+fi
+
 
 # This is last because it needs to be done after Chrome is installed (if selected)
 echo "Downloading LastPass binary..."
